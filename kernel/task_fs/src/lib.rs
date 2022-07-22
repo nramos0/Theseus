@@ -230,7 +230,7 @@ impl TaskFile {
         TaskFile {
             taskref,
             task_id,
-            path: Path::new(format!("{}/{}/task_info", TASKS_DIRECTORY_PATH, task_id).clone()), 
+            path: Path::new(format!("{}/{}/task_info", TASKS_DIRECTORY_PATH, task_id)), 
         }
     }
 
