@@ -1212,7 +1212,7 @@ fn do_fs_read_with_size(overhead_ct: u64, fsize_kb: usize, with_open: bool) -> R
 	let fsize_b = fsize_kb * KB as usize;
 	let mut vec = Vec::new();
 
-	let filename = format!("tmp_{}k.txt", fsize_kb);
+	let filename = format!("tmp_{}k.txt", fsize_kb).clone();
 
 	// we can use `mk_tmp_file()` because it is outside of the loop
 	mk_tmp_file(&filename, fsize_b).expect("Cannot create a file");
