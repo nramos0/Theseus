@@ -1,9 +1,10 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `kernel/mod_mgmt/src/parse_nano_core.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>parse_nano_core.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
-    <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../mod_mgmt/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `kernel/mod_mgmt/src/parse_nano_core.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>parse_nano_core.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../mod_mgmt/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
     <nav class="sidebar"><a class="sidebar-logo" href="../../mod_mgmt/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
-        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../mod_mgmt/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../mod_mgmt/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1">
+                                <a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div>
+                        </div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -824,6 +825,10 @@
 <span id="819">819</span>
 <span id="820">820</span>
 <span id="821">821</span>
+<span id="822">822</span>
+<span id="823">823</span>
+<span id="824">824</span>
+<span id="825">825</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Routines for parsing the `nano_core`, the fully-linked, already-loaded base kernel image,</span>
 <span class="doccomment">//! in other words, the code that is currently executing.</span>
 <span class="doccomment">//! As such, it performs no loading, but rather just creates metadata that represents</span>
@@ -1134,11 +1139,12 @@
                 .<span class="ident">ok_or</span>(<span class="string">&quot;Failed to parse the .eh_frame section header&#39;s address and size&quot;</span>)<span class="question-mark">?</span>;
             <span class="kw">let</span> <span class="ident">mapped_pages_offset</span> <span class="op">=</span> <span class="ident">rodata_pages</span>.<span class="ident">lock</span>().<span class="ident">offset_of_address</span>(<span class="ident">sec_vaddr</span>)
                 .<span class="ident">ok_or</span>(<span class="string">&quot;the nano_core .eh_frame section wasn&#39;t covered by the read-only mapped pages!&quot;</span>)<span class="question-mark">?</span>;
+            <span class="kw">let</span> <span class="ident">typ</span> <span class="op">=</span> <span class="ident">SectionType::EhFrame</span>;
             <span class="ident">crate_items</span>.<span class="ident">sections</span>.<span class="ident">insert</span>(
                 <span class="ident">section_counter</span>,
                 <span class="ident">Arc::new</span>(<span class="ident">LoadedSection::new</span>(
-                    <span class="ident">SectionType::EhFrame</span>,
-                    <span class="ident">EH_FRAME_STR_REF</span>.<span class="ident">clone</span>(),
+                    <span class="ident">typ</span>,
+                    <span class="ident">typ</span>.<span class="ident">name_str_ref</span>(),
                     <span class="ident">Arc::clone</span>(<span class="ident">rodata_pages</span>),
                     <span class="ident">mapped_pages_offset</span>,
                     <span class="ident">sec_vaddr</span>,
@@ -1154,11 +1160,12 @@
                 .<span class="ident">ok_or</span>(<span class="string">&quot;Failed to parse the .gcc_except_table section header&#39;s address and size&quot;</span>)<span class="question-mark">?</span>;
             <span class="kw">let</span> <span class="ident">mapped_pages_offset</span> <span class="op">=</span> <span class="ident">rodata_pages</span>.<span class="ident">lock</span>().<span class="ident">offset_of_address</span>(<span class="ident">sec_vaddr</span>)
                 .<span class="ident">ok_or</span>(<span class="string">&quot;the nano_core .gcc_except_table section wasn&#39;t covered by the read-only mapped pages!&quot;</span>)<span class="question-mark">?</span>;
+            <span class="kw">let</span> <span class="ident">typ</span> <span class="op">=</span> <span class="ident">SectionType::GccExceptTable</span>;
             <span class="ident">crate_items</span>.<span class="ident">sections</span>.<span class="ident">insert</span>(
                 <span class="ident">section_counter</span>,
                 <span class="ident">Arc::new</span>(<span class="ident">LoadedSection::new</span>(
-                    <span class="ident">SectionType::GccExceptTable</span>,
-                    <span class="ident">GCC_EXCEPT_TABLE_STR_REF</span>.<span class="ident">clone</span>(),
+                    <span class="ident">typ</span>,
+                    <span class="ident">typ</span>.<span class="ident">name_str_ref</span>(),
                     <span class="ident">Arc::clone</span>(<span class="ident">rodata_pages</span>),
                     <span class="ident">mapped_pages_offset</span>,
                     <span class="ident">sec_vaddr</span>,
@@ -1299,7 +1306,7 @@
 
     <span class="comment">// For us to properly load the ELF file, it must NOT have been stripped,</span>
     <span class="comment">// meaning that it must still have its symbol table section. Otherwise, relocations will not work.</span>
-    <span class="kw">let</span> <span class="ident">sssec</span> <span class="op">=</span> <span class="ident">elf_file</span>.<span class="ident">section_iter</span>().<span class="ident">filter</span>(<span class="op">|</span><span class="ident">sec</span><span class="op">|</span> <span class="ident">sec</span>.<span class="ident">get_type</span>() <span class="op">==</span> <span class="prelude-val">Ok</span>(<span class="ident">ShType::SymTab</span>)).<span class="ident">next</span>();
+    <span class="kw">let</span> <span class="ident">sssec</span> <span class="op">=</span> <span class="ident">elf_file</span>.<span class="ident">section_iter</span>().<span class="ident">find</span>(<span class="op">|</span><span class="ident">sec</span><span class="op">|</span> <span class="ident">sec</span>.<span class="ident">get_type</span>() <span class="op">==</span> <span class="prelude-val">Ok</span>(<span class="ident">ShType::SymTab</span>));
     <span class="kw">let</span> <span class="ident">symtab</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">sssec</span>.<span class="ident">ok_or</span>(<span class="string">&quot;no symtab section&quot;</span>).<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">get_data</span>(<span class="kw-2">&amp;</span><span class="ident">elf_file</span>)) {
         <span class="prelude-val">Ok</span>(<span class="ident">SectionData::SymbolTable64</span>(<span class="ident">symtab</span>)) =&gt; <span class="ident">symtab</span>,
         <span class="kw">_</span> =&gt; {
@@ -1330,31 +1337,31 @@
                
         <span class="kw">match</span> <span class="ident">sec</span>.<span class="ident">get_name</span>(<span class="kw-2">&amp;</span><span class="ident">elf_file</span>) {
             <span class="prelude-val">Ok</span>(<span class="string">&quot;.text&quot;</span>) =&gt; {
-                <span class="kw">if</span> <span class="op">!</span>(<span class="ident">sec</span>.<span class="ident">flags</span>() <span class="op">&amp;</span> (<span class="ident">SHF_ALLOC</span> <span class="op">|</span> <span class="ident">SHF_WRITE</span> <span class="op">|</span> <span class="ident">SHF_EXECINSTR</span>) <span class="op">==</span> (<span class="ident">SHF_ALLOC</span> <span class="op">|</span> <span class="ident">SHF_EXECINSTR</span>)) {
+                <span class="kw">if</span> <span class="ident">sec</span>.<span class="ident">flags</span>() <span class="op">&amp;</span> (<span class="ident">SHF_ALLOC</span> <span class="op">|</span> <span class="ident">SHF_WRITE</span> <span class="op">|</span> <span class="ident">SHF_EXECINSTR</span>) <span class="op">!</span><span class="op">=</span> (<span class="ident">SHF_ALLOC</span> <span class="op">|</span> <span class="ident">SHF_EXECINSTR</span>) {
                     <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="string">&quot;.text section had wrong flags!&quot;</span>);
                 }
                 <span class="ident">text_shndx</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">shndx</span>);
             }
             <span class="prelude-val">Ok</span>(<span class="string">&quot;.rodata&quot;</span>) =&gt; {
-                <span class="kw">if</span> <span class="op">!</span>(<span class="ident">sec</span>.<span class="ident">flags</span>() <span class="op">&amp;</span> (<span class="ident">SHF_ALLOC</span> <span class="op">|</span> <span class="ident">SHF_WRITE</span> <span class="op">|</span> <span class="ident">SHF_EXECINSTR</span>) <span class="op">==</span> (<span class="ident">SHF_ALLOC</span>)) {
+                <span class="kw">if</span> <span class="ident">sec</span>.<span class="ident">flags</span>() <span class="op">&amp;</span> (<span class="ident">SHF_ALLOC</span> <span class="op">|</span> <span class="ident">SHF_WRITE</span> <span class="op">|</span> <span class="ident">SHF_EXECINSTR</span>) <span class="op">!</span><span class="op">=</span> (<span class="ident">SHF_ALLOC</span>) {
                     <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="string">&quot;.rodata section had wrong flags!&quot;</span>);
                 }
                 <span class="ident">rodata_shndx</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">shndx</span>);
             }
             <span class="prelude-val">Ok</span>(<span class="string">&quot;.data&quot;</span>) =&gt; {
-                <span class="kw">if</span> <span class="op">!</span>(<span class="ident">sec</span>.<span class="ident">flags</span>() <span class="op">&amp;</span> (<span class="ident">SHF_ALLOC</span> <span class="op">|</span> <span class="ident">SHF_WRITE</span> <span class="op">|</span> <span class="ident">SHF_EXECINSTR</span>) <span class="op">==</span> (<span class="ident">SHF_ALLOC</span> <span class="op">|</span> <span class="ident">SHF_WRITE</span>)) {
+                <span class="kw">if</span> <span class="ident">sec</span>.<span class="ident">flags</span>() <span class="op">&amp;</span> (<span class="ident">SHF_ALLOC</span> <span class="op">|</span> <span class="ident">SHF_WRITE</span> <span class="op">|</span> <span class="ident">SHF_EXECINSTR</span>) <span class="op">!</span><span class="op">=</span> (<span class="ident">SHF_ALLOC</span> <span class="op">|</span> <span class="ident">SHF_WRITE</span>) {
                     <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="string">&quot;.data section had wrong flags!&quot;</span>);
                 }
                 <span class="ident">data_shndx</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">shndx</span>);
             }
             <span class="prelude-val">Ok</span>(<span class="string">&quot;.bss&quot;</span>) =&gt; {
-                <span class="kw">if</span> <span class="op">!</span>(<span class="ident">sec</span>.<span class="ident">flags</span>() <span class="op">&amp;</span> (<span class="ident">SHF_ALLOC</span> <span class="op">|</span> <span class="ident">SHF_WRITE</span> <span class="op">|</span> <span class="ident">SHF_EXECINSTR</span>) <span class="op">==</span> (<span class="ident">SHF_ALLOC</span> <span class="op">|</span> <span class="ident">SHF_WRITE</span>)) {
+                <span class="kw">if</span> <span class="ident">sec</span>.<span class="ident">flags</span>() <span class="op">&amp;</span> (<span class="ident">SHF_ALLOC</span> <span class="op">|</span> <span class="ident">SHF_WRITE</span> <span class="op">|</span> <span class="ident">SHF_EXECINSTR</span>) <span class="op">!</span><span class="op">=</span> (<span class="ident">SHF_ALLOC</span> <span class="op">|</span> <span class="ident">SHF_WRITE</span>) {
                     <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="string">&quot;.bss section had wrong flags!&quot;</span>);
                 }
                 <span class="ident">bss_shndx</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">shndx</span>);
             }
             <span class="prelude-val">Ok</span>(<span class="string">&quot;.tdata&quot;</span>) =&gt; {
-                <span class="kw">if</span> <span class="op">!</span>(<span class="ident">sec</span>.<span class="ident">flags</span>() <span class="op">&amp;</span> (<span class="ident">SHF_ALLOC</span> <span class="op">|</span> <span class="ident">SHF_WRITE</span> <span class="op">|</span> <span class="ident">SHF_EXECINSTR</span> <span class="op">|</span> <span class="ident">SHF_TLS</span>) <span class="op">==</span> (<span class="ident">SHF_ALLOC</span> <span class="op">|</span> <span class="ident">SHF_WRITE</span> <span class="op">|</span> <span class="ident">SHF_TLS</span>)) {
+                <span class="kw">if</span> <span class="ident">sec</span>.<span class="ident">flags</span>() <span class="op">&amp;</span> (<span class="ident">SHF_ALLOC</span> <span class="op">|</span> <span class="ident">SHF_WRITE</span> <span class="op">|</span> <span class="ident">SHF_EXECINSTR</span> <span class="op">|</span> <span class="ident">SHF_TLS</span>) <span class="op">!</span><span class="op">=</span> (<span class="ident">SHF_ALLOC</span> <span class="op">|</span> <span class="ident">SHF_WRITE</span> <span class="op">|</span> <span class="ident">SHF_TLS</span>) {
                     <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="string">&quot;.tdata section had wrong flags!&quot;</span>);
                 }
                 <span class="kw">let</span> <span class="ident">sec_vaddr</span> <span class="op">=</span> <span class="ident">VirtualAddress::new</span>(<span class="ident">sec</span>.<span class="ident">address</span>() <span class="kw">as</span> <span class="ident">usize</span>)
@@ -1362,7 +1369,7 @@
                 <span class="ident">tls_data_shndx</span> <span class="op">=</span> <span class="prelude-val">Some</span>((<span class="ident">shndx</span>, <span class="ident">sec_vaddr</span>));
             }
             <span class="prelude-val">Ok</span>(<span class="string">&quot;.tbss&quot;</span>) =&gt; {
-                <span class="kw">if</span> <span class="op">!</span>(<span class="ident">sec</span>.<span class="ident">flags</span>() <span class="op">&amp;</span> (<span class="ident">SHF_ALLOC</span> <span class="op">|</span> <span class="ident">SHF_WRITE</span> <span class="op">|</span> <span class="ident">SHF_EXECINSTR</span> <span class="op">|</span> <span class="ident">SHF_TLS</span>) <span class="op">==</span> (<span class="ident">SHF_ALLOC</span> <span class="op">|</span> <span class="ident">SHF_WRITE</span> <span class="op">|</span> <span class="ident">SHF_TLS</span>)) {
+                <span class="kw">if</span> <span class="ident">sec</span>.<span class="ident">flags</span>() <span class="op">&amp;</span> (<span class="ident">SHF_ALLOC</span> <span class="op">|</span> <span class="ident">SHF_WRITE</span> <span class="op">|</span> <span class="ident">SHF_EXECINSTR</span> <span class="op">|</span> <span class="ident">SHF_TLS</span>) <span class="op">!</span><span class="op">=</span> (<span class="ident">SHF_ALLOC</span> <span class="op">|</span> <span class="ident">SHF_WRITE</span> <span class="op">|</span> <span class="ident">SHF_TLS</span>) {
                     <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="string">&quot;.tbss section had wrong flags!&quot;</span>);
                 }
                 <span class="kw">let</span> <span class="ident">sec_vaddr</span> <span class="op">=</span> <span class="ident">VirtualAddress::new</span>(<span class="ident">sec</span>.<span class="ident">address</span>() <span class="kw">as</span> <span class="ident">usize</span>)
@@ -1374,11 +1381,12 @@
                     .<span class="ident">ok_or</span>(<span class="string">&quot;the nano_core .gcc_except_table section had an invalid virtual address&quot;</span>)<span class="question-mark">?</span>;
                 <span class="kw">let</span> <span class="ident">mapped_pages_offset</span> <span class="op">=</span> <span class="ident">rodata_pages</span>.<span class="ident">lock</span>().<span class="ident">offset_of_address</span>(<span class="ident">sec_vaddr</span>)
                     .<span class="ident">ok_or</span>(<span class="string">&quot;the nano_core .gcc_except_table section wasn&#39;t covered by the read-only mapped pages!&quot;</span>)<span class="question-mark">?</span>;
+                <span class="kw">let</span> <span class="ident">typ</span> <span class="op">=</span> <span class="ident">SectionType::GccExceptTable</span>;
                 <span class="ident">crate_items</span>.<span class="ident">sections</span>.<span class="ident">insert</span>(
                     <span class="ident">section_counter</span>,
                     <span class="ident">Arc::new</span>(<span class="ident">LoadedSection::new</span>(
-                        <span class="ident">SectionType::GccExceptTable</span>,
-                        <span class="ident">GCC_EXCEPT_TABLE_STR_REF</span>.<span class="ident">clone</span>(),
+                        <span class="ident">typ</span>,
+                        <span class="ident">typ</span>.<span class="ident">name_str_ref</span>(),
                         <span class="ident">Arc::clone</span>(<span class="kw-2">&amp;</span><span class="ident">rodata_pages</span>),
                         <span class="ident">mapped_pages_offset</span>,
                         <span class="ident">sec_vaddr</span>,
@@ -1394,11 +1402,12 @@
                     .<span class="ident">ok_or</span>(<span class="string">&quot;the nano_core .eh_frame section had an invalid virtual address&quot;</span>)<span class="question-mark">?</span>;
                 <span class="kw">let</span> <span class="ident">mapped_pages_offset</span> <span class="op">=</span> <span class="ident">rodata_pages</span>.<span class="ident">lock</span>().<span class="ident">offset_of_address</span>(<span class="ident">sec_vaddr</span>)
                     .<span class="ident">ok_or</span>(<span class="string">&quot;the nano_core .eh_frame section wasn&#39;t covered by the read-only mapped pages!&quot;</span>)<span class="question-mark">?</span>;
+                <span class="kw">let</span> <span class="ident">typ</span> <span class="op">=</span> <span class="ident">SectionType::EhFrame</span>;
                 <span class="ident">crate_items</span>.<span class="ident">sections</span>.<span class="ident">insert</span>(
                     <span class="ident">section_counter</span>,
                     <span class="ident">Arc::new</span>(<span class="ident">LoadedSection::new</span>(
-                        <span class="ident">SectionType::EhFrame</span>,
-                        <span class="ident">EH_FRAME_STR_REF</span>.<span class="ident">clone</span>(),
+                        <span class="ident">typ</span>,
+                        <span class="ident">typ</span>.<span class="ident">name_str_ref</span>(),
                         <span class="ident">Arc::clone</span>(<span class="kw-2">&amp;</span><span class="ident">rodata_pages</span>),
                         <span class="ident">mapped_pages_offset</span>,
                         <span class="ident">sec_vaddr</span>,
@@ -1646,5 +1655,5 @@
     <span class="prelude-val">Ok</span>(())
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="mod_mgmt" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (c84f39e6c 2022-03-20)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="mod_mgmt" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (f8588549c 2022-07-18)" ></div>
 </body></html>
